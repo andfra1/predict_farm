@@ -1,0 +1,90 @@
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box; }
+
+.container {
+  position: absolute;
+  width: 100%;
+  height: 100%; }
+
+p {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  color: #000; }
+
+.wrapper {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 400px;
+  max-width: 400px;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%); }
+
+.item {
+  width: 33%;
+  position: relative;
+  border: 5px solid #fff;
+  overflow: hidden;
+  background-color: #fff;
+  -moz-background-size: 100%;
+  background-size: auto 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  -webkit-transition: background-size 0.4s;
+  -o-transition: background-size 0.4s;
+  -moz-transition: background-size 0.4s, -moz-background-size 0.4s;
+  transition: background-size 0.4s;
+  transition: background-size 0.4s, -moz-background-size 0.4s; }
+  .item:before {
+    content: '';
+    padding-top: 100%;
+    float: left;
+    display: block; }
+  .item--active {
+    -moz-background-size: auto 120%;
+    background-size: auto 120%; }
+
+#cat {
+  background-image: url("../img/cat.jpg"); }
+
+#chicken {
+  background-image: url("../img/chicken.jpg"); }
+
+#cow {
+  background-image: url("../img/cow.jpg"); }
+
+#dog {
+  background-image: url("../img/dog.png"); }
+
+#goat {
+  background-image: url("../img/goat.png"); }
+
+#goose {
+  background-image: url("../img/goose.jpg"); }
+
+#pig {
+  background-image: url("../img/pig.png"); }
+
+#rooster {
+  background-image: url("../img/rooster.jpg"); }
+
+#farmer {
+  background-image: url("../img/farmer.png"); }

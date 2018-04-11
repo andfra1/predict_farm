@@ -1,0 +1,121 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+p {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  color: #000;
+}
+
+.wrapper {
+  display: flex;
+  width: 400px;
+  max-width: 400px;
+  flex-wrap: wrap;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.item {
+  width: 33%;
+  position: relative;
+  border: 5px solid #fff;
+  overflow: hidden;
+  background-color: #fff;
+  -moz-background-size: 100%;
+  background-size: auto 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  transition: background-size 0.4s;
+  &:before {
+    content: '';
+    padding-top: 100%;
+    float: left;
+    display: block;
+  }
+  &--active {
+    background-size: auto 120%;
+  }
+}
+
+#cat {
+background-image: url('../img/cat.jpg');
+}
+#chicken {
+  background-image: url('../img/chicken.jpg');
+}
+#cow {
+  background-image: url('../img/cow.jpg');
+}
+#dog {
+  background-image: url('../img/dog.png');
+}
+#goat {
+  background-image: url('../img/goat.png');
+}
+#goose {
+  background-image: url('../img/goose.jpg');
+}
+#pig {
+  background-image: url('../img/pig.png');
+}
+#rooster {
+  background-image: url('../img/rooster.jpg');
+}
+#farmer {
+  background-image: url('../img/farmer.png');
+}
+
+// .item {
+//   width: 33%;
+//   position: relative;
+//   &:before {
+//     content: '';
+//     padding-top: 100%;
+//     float: left;
+//     display: block;
+//   }
+//   &__box {
+//     position: relative;
+//     overflow: hidden;
+//     width: 100%;
+//     height: 100%;
+//     border: 10px solid transparent;
+//     background-color: #fff;
+//     transition: border 0.4s;
+//     cursor: pointer;
+//     &:before {
+//       content: '';
+//       display: block;
+//     }
+//     &--active {
+//       border: 0 solid transparent;
+//     }
+//     &Img {
+//       height: 100%;
+//       width: auto;
+//       position: absolute;
+//       top: 50%;
+//       left: 50%;
+//       transform: translate(-50%, -50%);
+//       transition: transform 0.4s;
+//       &--active {
+//         transform: translate(-50%, -50%) scale(1.2);
+//       }
+//     }
+//   }
+// }

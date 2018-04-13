@@ -1,10 +1,14 @@
-var item = document.getElementsByClassName('item');
-var items = item.length;
-var sound = document.getElementsByClassName('sound');
-var keys = ["w", "e", "r", "s", "d", "f", "x", "c", "v"];
-var getIndex;
-var text = document.getElementsByClassName('keys')[0];
-text.innerHTML = keys;
+var item = document.getElementsByClassName('item'),
+  items = item.length,
+  sound = document.getElementsByClassName('sound'),
+  keys = ["w", "e", "r", "s", "d", "f", "x", "c", "v"],
+  getIndex,
+  audio = 0,
+  audioDuration,
+  text = document.getElementsByClassName('keys')[0].textContent = keys,
+  checkCurrentTime = setInterval(function () {
+    return false;
+  });
 
 window.addEventListener('keydown', onKeyPush, false);
 
@@ -12,55 +16,75 @@ for (var index = 0; index < items; index++) {
   item[index].addEventListener('click', onMouseClick, false);
 }
 
+/* plays selected audio */
+function audioRun() {
+  _this.classList.add('item--active');
+  audio = document.getElementById(getId + 'Sound');
+  audioDuration = audio.duration;
+  audio.load();
+  audio.play();
+}
+
+/* resets iterval and remove class 'item--active'*/
+function reset() {
+  clearInterval(checkCurrentTime);
+  for (var index = 0; index < items; index++) {
+    item[index].classList.remove('item--active');
+  }
+};
+
+/*
+chceck audio duration and do things when finish playing;
+audioDuration - 0.7 helps JS chcecking audio.currentTime
+audio.duration shows real duration, audio.currentTime is NOT! (it's always lower than audio.duration)
+*/
+function audioTimeCheck() {
+  if (audio.currentTime >= (audioDuration - 0.7)) {
+    reset();
+  }
+}
+
 function onKeyPush(e) {
+  reset();
   if (keys.indexOf(e.key) !== -1) {
-    var _this = item[keys.indexOf(e.key)];
-    var getId = _this.getAttribute('id');
+    /* _this assign pressed key form 'keys' array and returns it's index in to 'item' array */
+    _this = item[keys.indexOf(e.key)];
+    /* ...and gets THIS 'item' ID */
+    getId = _this.getAttribute('id');
     if (getId != 'farmer') {
-      _this.classList.add('item--active');
-      var audio = document.getElementById(getId + 'Sound');
-      var audioDuration = audio.duration;
-      audio.load();
-      audio.play();
-      var si = setInterval(function () {
-        if (audio.currentTime >= (audioDuration - 0.7)) {
-          clearInterval(si);
-          _this.classList.remove('item--active');
-        }
-      }, 100);
+      audioRun();
+      /* 'checkCurrentTime' chcecking audio.currentTime every 100ms */
+      checkCurrentTime = setInterval(audioTimeCheck, 100);
     } else {
       farmer();
     }
   } else {
+    /* if pressed key is different than from 'keys' array then do nothing (no error in console) */
     return false;
   }
-  e.preventDefault();
 }
 
 function onMouseClick() {
-  var _this = this;
-  var getId = _this.getAttribute('id');
+  reset();
+  _this = this;
+  getId = _this.getAttribute('id');
   if (getId !== 'farmer') {
-    var audio = document.getElementById(getId + 'Sound');
-    var audioDuration = audio.duration;
-    _this.classList.add('item--active');
-    audio.load();
-    audio.play();
-    var si = setInterval(function () {
-      if (audio.currentTime >= (audioDuration - 0.7)) {
-        clearInterval(si);
-        _this.classList.remove('item--active');
-      }
-    }, 100);
+    audioRun();
+    checkCurrentTime = setInterval(audioTimeCheck, 100);
   } else {
     farmer();
   }
 }
 
+/* create 'getIndex' array with random numbers */
 function randomize() {
+  /* every time strarts as empty array */
   getIndex = [];
+  /* 'getIndex' must be smaller than 'items' by 1 (8 elements, without farmer) */
   while (getIndex.length < (items - 1)) {
+    /* every time make a random number */
     var random = Math.floor(Math.random() * (items - 1));
+    /* .includes chcecks numbers in 'getIndex' array, if it's not, then pushes random number into array */
     if (!getIndex.includes(random)) {
       getIndex.push(random);
     }
@@ -69,22 +93,17 @@ function randomize() {
 }
 
 function farmer() {
-  for (var index = 0; index < items; index++) {
-    item[index].classList.remove('item--active')
-  }
+  console.log('Hey farmer, make some noise!');
+  reset();
   var count = 0;
   randomize();
-  var si = setInterval(function () {
-    var _this = item[getIndex[count]];
-    var getId = _this.getAttribute('id');
-    var audio = document.getElementById(getId + 'Sound');
-    var audioDuration = audio.duration;
-    _this.classList.add('item--active');
-    audio.load();
-    audio.play();
+  checkCurrentTime = setInterval(function () {
+    _this = item[getIndex[count]];
+    getId = _this.getAttribute('id');
+    audioRun();
     count++;
     if (count === items - 1) {
-      clearInterval(si);
+      clearInterval(checkCurrentTime);
     }
-  }, 1000);
+ }, 1000);
 }

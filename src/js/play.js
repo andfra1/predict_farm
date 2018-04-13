@@ -44,6 +44,14 @@ function audioTimeCheck() {
   }
 }
 
+function farmerChecksTime() {
+  if (audio.currentTime >= (audioDuration - 0.7)) {
+    reset();
+    count++;
+    playOneByOne();
+  }
+}
+
 function onKeyPush(e) {
   reset();
   if (keys.indexOf(e.key) !== -1) {
@@ -92,18 +100,21 @@ function randomize() {
   return getIndex;
 }
 
-function farmer() {
-  console.log('Hey farmer, make some noise!');
-  reset();
-  var count = 0;
-  randomize();
-  checkCurrentTime = setInterval(function () {
+var count = 0;
+function playOneByOne() {
+  if (count < items-1) {
     _this = item[getIndex[count]];
     getId = _this.getAttribute('id');
     audioRun();
-    count++;
-    if (count === items - 1) {
-      clearInterval(checkCurrentTime);
-    }
- }, 1000);
+    checkCurrentTime = setInterval(farmerChecksTime, 100);
+  } else {
+    return false;
+  }
+}
+
+function farmer() {
+  reset();
+  count = 0;
+  randomize();
+  playOneByOne();
 }
